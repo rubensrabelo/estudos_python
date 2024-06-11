@@ -13,7 +13,6 @@ api = Api(app)
 @app.before_request
 def create_tables():
     app.before_request_funcs[None].remove(create_tables)
-
     banco.create_all()
 
 

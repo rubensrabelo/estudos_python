@@ -166,3 +166,4 @@ instance/
 *.db
 *.yml
 Dockerfile
+*.flaskenv

@@ -1,60 +1,53 @@
-# Importando a lib responsável por criar o back end da aplicação, sendo Flask (criar um objeto flask) e request (obter os dados envidos pelo o usuário)
+import uuid
 from flask import Flask, request
 
-# Criação da var app que irá gerenciar todos os comandos nencessário para o correto funcionamento da aplicação
+from db import stores, items
+
+
 app = Flask(__name__)
 
-# flask run --> Comando para colocar a aplicação em funcionamento em uma porta
-# Criando o local de armazenamento temporário da aplicação
 
-stores = [{
-    "name": "My Store",
-    "items": [{
-        "name": "Chair",
-        "price": 15.99
-    }]
-}]
-
-
-# Criando o método HTTP GET para obter a informação de todas as lojas cadastradas
 @app.get("/store")
 def get_stores():
-    return {"stores": stores}, 200
+    return {"stores": list(stores.values())}, 200
 
 
-# Criando o método POST para obter o cadastrado de uma nova loja
 @app.post("/store")
 def create_store():
-    request_data = request.get_json()  # Pegando os dados enviados
-    new_store = {"name": request_data["name"], "items": []}  # Colocando no formato aceito no armazenamento
-    stores.append(new_store)  # Adicionando no armazenamento
-    return new_store, 201  # Enviando todas as lojas e os status de sucesso
+    store_data = request.get_json()
+    store_id = uuid.uuid4().hex
+    store = {**store_data, "id": store_id}
+    stores[store_id] = store
+    return store, 201
 
 
-# Criando um método para inserir valores em um nome especifícado pelo usuário
-@app.post("/store/<string:name>/item")
-def create_item(name):
-    request_data = request.get_json()
-    for store in stores:
-        if store["name"] == name:
-            new_item = {"name": request_data["name"], "price": request_data["price"]}
-            store["items"].append(new_item)
-            return new_item, 201
-    return {"message": "Store not found."}, 404
+@app.post("/item")
+def create_item():
+    item_data = request.get_json()
+    if item_data["store_id"] not in stores:
+        return {"message": "Store not found."}, 404
+    item_id = uuid.uuid4().hex
+    item = {**item_data, "id": item_id}
+    items[item_id] = item
+    return item, 201
 
 
-# Criando um método GET para obter uma loja pelo nome
-@app.get("/store/<string:name>")
-def get_one_store(name):
-    for store in stores:
-        if store["name"] == name:
-            return store, 200
-    return {"message": "Store not found."}, 404
+@app.get("/item")
+def get_all_items():
+    return {"items": list(items.values())}
 
 
-@app.get("/store/<string:name>/item")
-def get_item(name):
-    for store in stores:
-        if store["name"] == name:
-            return {"items": store["items"]}, 200
-    return {"message": "Store not found."}, 404
+@app.get("/store/<string:store_id>")
+def get_one_store(store_id):
+    try:
+        return stores[store_id], 200
+    except KeyError:
+        return {"message": "Store not found."}, 404
+
+
+@app.get("/item/<string:item_id>")
+def get_item(item_id):
+    try:
+        return items[item_id], 200
+    except KeyError:
+        return {"message": "Item not found."}, 404

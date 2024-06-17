@@ -1,15 +1,3 @@
-def calculator(args):
-    new_list = []
-    result = 0
-    for value in args:
-        new_list.append(value)
-        if len(new_list) == 3:
-            result = operacao(new_list)
-            new_list = []
-            new_list.append(result)
-    return result
-
-
 def operacao(args):
     if args[1] == "+":
         return float(args[0]) + float(args[2])
@@ -21,6 +9,18 @@ def operacao(args):
         return float(args[0]) / float(args[2])
     else:
         print("Invalid!")
+
+
+def calculator(args):
+    new_list = []
+    result = 0
+    for value in args:
+        new_list.append(value)
+        if len(new_list) == 3:
+            result = operacao(new_list)
+            new_list = []
+            new_list.append(result)
+    return result
 
 
 values = []

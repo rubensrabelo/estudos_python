@@ -3,20 +3,23 @@
 lista_de_tarefas = []
 
 
-def inserir_tarefa():
-    ...
+def inserir_tarefa(nome, situacao="Em andamento"):
+    lista_de_tarefas.append({
+        "nome": nome,
+        "situacao": situacao
+    })
 
 
-def remover_tarefa():
-    ...
+def remover_tarefa(indice):
+    del lista_de_tarefas[indice]
 
 
-def marcar_conclusao():
-    ...
+def marcar_conclusao(indice):
+    lista_de_tarefas[indice]["situacao"] = "finalizado"
 
 
 def visualizar_tarefas():
-    ...
+    return "\n".join(f"[{i+1}] - {tarefa['nome']} ({tarefa['situacao']})" for i, tarefa in enumerate(lista_de_tarefas))
 
 
 opcoes_do_programa = {
@@ -32,17 +35,22 @@ while True:
     for valor, chave in opcoes_do_programa.items():
         print(f"[{valor}]: {chave}")
     print()
-    opcao = str(input("Digite sua o5pção: "))
+    opcao = str(input("Digite sua opção: "))
 
     if opcao in opcoes_do_programa:
         if opcao == "1":
-            inserir_tarefa()
+            nome = input("Digite um nome: ")
+            inserir_tarefa(nome)
         elif opcao == "2":
-            remover_tarefa()
+            indice = int(input("Digite o indice da tarefa: "))
+            remover_tarefa(indice - 1)
         elif opcao == "3":
-            visualizar_tarefas()
+            print("-" * 30)
+            print(visualizar_tarefas())
+            print("-" * 30)
         elif opcao == "4":
-            marcar_conclusao()
+            indice = int(input("Digite o indice da tarefa: "))
+            marcar_conclusao(indice - 1)
         else:
             break
     else:

@@ -3,11 +3,12 @@ from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from db import db
-from models import TagModel, StoreModel
-from schemas import TagsSchema
+from models import TagModel, StoreModel, ItemModel
+from schemas import TagsSchema, TagAndItemSchema
 
 
 blp = Blueprint("stores", __name__, descriptions="Operation on stores")
+
 
 @blp.route("/store/<string:store_id>/tag")
 class TagInStore(MethodView):
@@ -34,6 +35,39 @@ class TagInStore(MethodView):
             abort(500, message=str(e))
 
         return tag
+
+
+@blp.route("/item/<string:item_id>/tag/<string:tag_id>")
+class LinkTagsToItem(MethodView):
+    @blp.response(200, TagsSchema)
+    def post(self, item_id, tag_id):
+        item = ItemModel.query.get_or_404(item_id)
+        tag = TagModel.query.get_or_404(tag_id)
+
+        item.tags.append(tag)
+
+        try:
+            db.session.add(item)
+            db.session.commit()
+        except SQLAlchemyError:
+            abort(500, message="An error ocurred while inserting the tag.")
+
+        return tag
+
+    @blp.response(200, TagAndItemSchema)
+    def delete(self, item_id, tag_id):
+        item = ItemModel.query.get_or_404(item_id)
+        tag = TagModel.query.get_or_404(tag_id)
+
+        item.tags.remove(tag)
+
+        try:
+            db.session.add(item)
+            db.session.commit()
+        except SQLAlchemyError:
+            abort(500, message="An error ocurred while deleting the tag.")
+
+        return {"message": "Item removed from tag", "item": item, "tag": tag}
 
 
 @blp.route("/store/<string:tag>")

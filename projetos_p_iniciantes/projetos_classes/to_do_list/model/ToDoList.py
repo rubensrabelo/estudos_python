@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import List
 
 from entities.Task import Task
-from entities.enums.TaskStatus import TaskStatus
+from entities.enums import StatusTask
 
 
 @dataclass
@@ -22,28 +22,16 @@ class ToDoList:
     def remove_task(self, index: int) -> None:
         try:
             del self.tasks[index]
-        except IndexError as e:
-            print(f"Error: {e}")
+        except IndexError:
+            print("Error: No task exists with this index in the To-Do List.")
 
-    # Falta testar se o código abaixo está coerente - teste
-
-    def update_task(self, index: int, name: str | None = None, status: int  | None = None) -> None:
-        if status:
-            if status not in list(range(1, 4)):
-                raise ValueError("Error: Status should be in range 1 to 3")
-            if status == 1:
-                task_status: TaskStatus = TaskStatus.PENDING
-            elif status == 2:
-                task_status = TaskStatus.IN_PROGRESS
-            else:
-                task_status = TaskStatus.COMPLETED
-
+    def update_task(self, index: int, name: str | None = None, status: StatusTask | None = None) -> None:
         if name and status:
             self.tasks[index]["name"] = name
-            self.tasks[index]["status"] = task_status
+            self.tasks[index]["status"] = StatusTask
             return
         elif name and not status:
             self.tasks[index]["name"] = name
             return
-        self.tasks[index]["status"] = task_status
+        self.tasks[index]["status"] = StatusTask
         return

@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import List
 
 from entities.Task import Task
+from entities.enums import StatusTask
 
 
 @dataclass
@@ -15,9 +16,12 @@ class ToDoList:
         })
 
     def remove_task(self, index: int) -> None:
-        del self.tasks[index]
+        try:
+            del self.tasks[index]
+        except IndexError:
+            print("Error: No task exists with this index in the To-Do List.")
 
-    def update_task(self, index: int, name: str | None = None, status: str | None = None) -> None:
+    def update_task(self, index: int, name: str | None = None, status: StatusTask | None = None) -> None:
         if name and status:
             self.tasks[index]["name"] = name
             self.tasks[index]["status"] = status

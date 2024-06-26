@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from typing import List
 
-from entities.Task import Task
-from entities.enums import StatusTask
+from model.entities.Task import Task
+from model.entities.enums import StatusTask
 
 
 @dataclass
@@ -28,10 +28,11 @@ class ToDoList:
     def update_task(self, index: int, name: str | None = None, status: StatusTask | None = None) -> None:
         if name and status:
             self.tasks[index]["name"] = name
-            self.tasks[index]["status"] = StatusTask
+            self.tasks[index]["status"] = status
             return
         elif name and not status:
             self.tasks[index]["name"] = name
+            self.tasks[index]["name"] = StatusTask.PENDING
             return
         self.tasks[index]["status"] = StatusTask
         return

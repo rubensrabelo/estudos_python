@@ -10,8 +10,12 @@ class FolderHandling:
         if not folder.exists():
             folder.mkdir()
 
-        caminho_atual = os.path.join("to_do_list", file)
+        caminho_atual = os.path.join(".", file)
         caminho_destino = os.path.join("database", "db")
+
+        # Tenho que ajeitaar a lógica para inserir novos valore após a criação do caminho destinho
 
         if os.path.exists(caminho_destino):
             shutil.move(caminho_atual, caminho_destino)
+        else:
+             ...

@@ -1,1 +1,1 @@
-from entities.Task import Task
+from model.entities.Task import Task

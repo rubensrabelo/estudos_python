@@ -1,1 +1,1 @@
-from entities.enums.StatusTask import StatusTask
+from model.entities.enums.StatusTask import StatusTask

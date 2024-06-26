@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
-from entities.enums import StatusTask
+from model.entities.enums import StatusTask
 
 
 @dataclass
 class Task:
     name: str
-    status: StatusTask
+    status: StatusTask = StatusTask.PENDING

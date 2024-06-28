@@ -42,7 +42,7 @@ def get_items(name):
 
 
 @app.post("/stores/<string:name>/item")
-def post_a_item(name):
+def post_item_in_store(name):
     for store in stores:
         if store["name"] == name:
             item_data = request.get_json()

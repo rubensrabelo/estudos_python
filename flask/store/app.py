@@ -1,36 +1,33 @@
+import uuid
 from flask import Flask, request
+
+from db import stores, items
 
 
 app = Flask(__name__)
 
-stores = [{
-    "name": "My Store",
-    "items": [{
-        "name": "My Item",
-        "price": 15.99
-    }]
-}]
 
 
 @app.get("/stores")
 def get():
-    return {"stores": stores}, 200
+    return {"stores": list(stores.values)}, 200
 
 
-@app.get("/store/<string:name>")
-def get_one_store(name):
-    for store in stores:
-        if store["name"] == name:
-            return store, 200
-    return {"message": "Store not found."}, 404
+@app.get("/store/<string:store_id>")
+def get_one_store(store_id):
+    try:
+        return stores[store_id], 200
+    except IndexError:
+        return {"message": "Store not found."}, 404
 
 
-@app.post("/stores")
+@app.post("/stores")  # Parei aqui
 def post():
     store_data = request.get_json()
-    new_store = {"name": store_data["name"], "items": []}
-    stores.append(new_store)
-    return new_store, 201
+    store_id = uuid.uuid4().hex
+    store = {**store_data, id: store_id}
+    stores[store_id] = store
+    return store, 201
 
 
 @app.get("/store/<string:name>/item")

@@ -3,12 +3,15 @@ from models.PublishingCompany import PublishingCompany
 
 
 class Book:
+    id: int = 0
+
     def __init__(self, name: str, pages_quantity: int, price: float, publishingCompany: PublishingCompany) -> None:
         self.name = name
         self.pages_quantity = pages_quantity
         self.price = price
         self.publishingCompany = publishingCompany
         self.authors: list[Author] = []
+        Book.id += 1
 
     def add_author(self, author: Author):
         self.authors.append(author)

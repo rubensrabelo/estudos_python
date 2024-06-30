@@ -1,0 +1,3 @@
+1. Realizar melhorias na classe Book
+
+2. Começar a construção do banco de dados em JSON

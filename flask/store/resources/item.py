@@ -6,7 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from db import db
 from models import ItemModel
 
-from schemas import ItemSchema, ItemsUpdateSchema
+from schemas import ItemSchema, ItemUpdateSchema
 
 blp = Blueprint("items", __name__, description="Operations on items")
 
@@ -30,7 +30,7 @@ class Items(MethodView):
         db.session.commit()
         return {"message": "Item deleted."}
 
-    @blp.arguments(ItemsUpdateSchema)
+    @blp.arguments(ItemUpdateSchema)
     @blp.response(200, ItemSchema)
     def put(self, item_data, item_id):
         item = ItemModel.query.get(item_id)
@@ -56,7 +56,7 @@ class ItemsList(MethodView):
 
     @jwt_required(fresh=True)
     @blp.arguments(ItemSchema)
-    @blp.arguments(201, ItemSchema)
+    @blp.response(201, ItemSchema)
     def post(cls, item_data):
         item = ItemModel(**item_data)
 

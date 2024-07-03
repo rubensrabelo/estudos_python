@@ -10,7 +10,7 @@ class BookSchema(Schema):
 
 
 class BookUpdateSchema(Schema):
-    name = fields.Str()
-    pages_quantity = fields.Float()
+    name = fields.Str(required=True)
+    pages_quantity = fields.Float(required=True)
     author = fields.Str()
     publishing_company = fields.Str()

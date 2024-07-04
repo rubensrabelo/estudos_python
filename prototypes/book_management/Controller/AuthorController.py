@@ -3,14 +3,30 @@ from models.Author import Author
 
 
 class AuthorController:
-    def add():
-        ...
+    __JSON_AUTHOR = "authors.json"
+    __JSON_SERVICE = JsonManagementService(__JSON_AUTHOR)
 
-    def remove():
-        ...
+    @staticmethod
+    def add(author: Author) -> None:
+        value = author.__dict__
+        AuthorController.__JSON_SERVICE.add_file(value)
 
-    def update():
-        ...
+    @staticmethod
+    def remove(index) -> None:
+        AuthorController.__JSON_SERVICE.remove_value(index)
 
+    @staticmethod
+    def update(index: int, name: str = None, gender: str = None) -> None:
+        data = AuthorController.__JSON_SERVICE.open_file()
+
+        if name:
+            data[index]["name"] = name
+
+        if gender:
+            data[index]["gender"] = gender
+
+        AuthorController.__JSON_SERVICE.add_file(data)
+
+    @staticmethod
     def show():
         ...

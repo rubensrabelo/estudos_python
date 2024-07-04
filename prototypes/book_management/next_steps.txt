@@ -1,3 +1,10 @@
+Passos:
+    1 - AuthorControler 
+    1 - PublishingCompanyControler 
+    1 - BookControler 
+
+
+
 1. Eu vou receber do usuário o Livro -> {Nome, Qtd_pag, Valor}, Editora - id_editora {Nome, UF}, Autores - id_autor {Nome, UF}
     a - Cadastrar a Editora
     b - Cadastrar o Autor (s)

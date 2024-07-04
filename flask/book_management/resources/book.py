@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from sqlachemy.exc import SQLAlchemyError
+from sqlachemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import BookModel
@@ -47,5 +47,21 @@ class BookList(MethodView):
     def get(self):
         return BookModel.query.all()
 
-    def post(self):
-        ...
+    @blp.arguments(BookSchema)
+    @blp.response(201, BookSchema)
+    def post(self, book_data):
+        book = BookModel(**book_data)
+
+        try:
+            db.session.add(book)
+            db.session.commit()
+        except IntegrityError:
+            abort(
+                400,
+                message="A store with that name already exists."
+            )
+        except SQLAlchemyError:
+            abort(
+                500,
+                message="An error occurred creating the store."
+            )

@@ -1,16 +1,10 @@
-Passos:
-    1 - AuthorControler 
-    1 - PublishingCompanyControler 
-    1 - BookControler 
+Entrada: Eu vou receber do usuário o Livro -> Nome, Qtd_pag, Valor, Editora, Autor
 
+1 - Revisar a estrutura do db - ok
+2 - Revisar a estrutura do model Livro - ok
+3 - Revisar a estrutura do Controler JSON - ok
+4 - Revisar a estrutura do controle Livro - ok
 
-
-1. Eu vou receber do usuário o Livro -> {Nome, Qtd_pag, Valor}, Editora - id_editora {Nome, UF}, Autores - id_autor {Nome, UF}
-    a - Cadastrar a Editora
-    b - Cadastrar o Autor (s)
-    c - Visualizar se já estão no bd, se não realizr o cadastro
-
-    d Cadastrar o livro, pegando os ids da editora e autor
-
-
-? Testar os valores passados pelo o usuário em Book e fazer tratamentos
+Prox. passos:
+1. Colocar o código no Copilot para ter uma análise
+2. Começar o planejamento da construção da main

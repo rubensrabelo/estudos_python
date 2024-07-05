@@ -28,13 +28,3 @@ class JsonManagementService:
         data = self.open_file()
         del data[index]
         self.add_file(data)
-
-    # Esse método é algo da classe, pois ela que conhece os seus atributos
-    # def update_file(self, index: int, value: dict[str, Union[str, float]]) -> None:
-    #     data = self.open_file()
-    #     data[index] = value
-
-    # Repensar se vale a pena construir essa classe
-    # def show_file(self):
-    #     with open(self.__PATH_FILE) as file:
-    #         ...

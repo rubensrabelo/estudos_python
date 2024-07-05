@@ -55,6 +55,7 @@ class BookList(MethodView):
         try:
             db.session.add(book)
             db.session.commit()
+            return book
         except IntegrityError:
             abort(
                 400,

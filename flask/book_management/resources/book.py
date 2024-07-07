@@ -28,10 +28,10 @@ class Book(MethodView):
         book = BookModel.query.get(book_id)
 
         if book:
-            book["name"] = book_data["name"]
-            book["pages_quantity"] = book_data["pages_quantity"]
-            book["author"] = book_data["author"]
-            book["publishing_company"] = book_data["publishing_company"]
+            book.name = book_data["name"]
+            book.pages_quantity = book_data["pages_quantity"]
+            book.author = book_data["author"]
+            book.publishing_company = book_data["publishing_company"]
         else:
             book = BookModel(id=book_id, **book_data)
 

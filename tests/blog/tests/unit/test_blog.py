@@ -15,6 +15,19 @@ class BlogTest(TestCase):
         self.assertListEqual([], blog.posts)
         self.assertEqual(len([]), len(blog.posts))
 
+    def test_repr(self):
+        blog1 = Blog("Test", "Test Author")
+        blog2 = Blog("My Day", "Rolph")
+
+        self.assertEqual(blog1.__repr__(), "Test by Test Author (0 posts)")
+        self.assertEqual(blog2.__repr__(), "My Day by Rolph (0 posts)")
+
+    def test_multiple_posts(self):
+        blog1 = Blog("Test", "Test Author")
+        blog1.posts = ["Another test"]
+
+        self.assertEqual(blog1.__repr__(), "Test by Test Author (1 posts)")
+
 
 if __name__ == "__main__":
     import unittest

@@ -13,18 +13,34 @@ class JsonManagementService:
             )
 
     def open_file(self) -> list[dict[str, Union[str, float]]]:
-        with open(self.__PATH_FILE, "r", encoding="utf-8") as file_read:
-            data = json.load(file_read)
+        """Abre o arquivo JSON e retorna os dados como uma lista de dicionários."""
+        try:
+            with open(self.__PATH_FILE, "r", encoding="utf-8") as file_read:
+                data = json.load(file_read)
+        except FileNotFoundError:
+            data = []
+        except json.JSONDecodeError:
+            data = []
         return data
 
     def add_file(self, value: dict[str, Union[str, float]]) -> None:
+        """Adiciona um valor ao arquivo JSON."""
         data = self.open_file()
         data.append(value)
 
         with open(self.__PATH_FILE, "w") as file_write:
             json.dump(data, file_write, indent=4)
 
-    def remove_value(self, index):
+    def remove_value(self, index: int) -> None:
+        """Remove um valor do arquivo JSON baseado no índice."""
         data = self.open_file()
-        del data[index]
+
+        if not data:
+            raise ValueError("Não há dados para remover.")
+
+        try:
+            del data[index]
+        except IndexError:
+            raise IndexError("Índice fora dos limites.")
+
         self.add_file(data)

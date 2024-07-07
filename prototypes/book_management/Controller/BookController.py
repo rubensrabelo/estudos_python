@@ -8,24 +8,34 @@ class BookController:
     __json_service = JsonManagementService("books.json")
 
     @staticmethod
-    def add(value) -> None:
+    def add(value: dict[str, Union[str, float]]) -> None:
+        """Adiciona um livro ao arquivo JSON."""
         BookController.__json_service.add_file(value)
 
     @staticmethod
-    def remove(index) -> None:
+    def remove(index: int) -> None:
+        """Remove um livro do arquivo JSON pelo índice."""
         BookController.__json_service.remove_value(index)
 
     @staticmethod
-    def update(index, data_book: Book) -> None:
+    def update(index: int, data_book: Book) -> None:
+        """Atualiza os dados de um livro no arquivo JSON pelo índice."""
         data = BookController.__json_service.open_file()
 
-        data[index]["name"] = data_book.name
-        data[index]["pages_quantity"] = data_book.pages_quantity
-        data[index]["price"] = data_book.price
-        data[index]["publishing_company"] = data_book.publishing_company
-        data[index]["authors"] = list(data_book.authors)
+        try:
+            data[index]["name"] = data_book.name
+            data[index]["pages_quantity"] = data_book.pages_quantity
+            data[index]["price"] = data_book.price
+            data[index]["publishing_company"] = data_book.publishing_company
+            data[index]["authors"] = list(data_book.authors)
+        except IndexError:
+            raise IndexError("Índice fora dos limites.")
 
-    @staticmethod 
-    def show():
+        BookController.__json_service.add_file(data)
+
+    @staticmethod
+    def show() -> str:
+        """Retorna uma representação em string de todos os livros."""
         datas = BookController.__json_service.open_file()
-        return "\n".join(Book(data) for data in datas)
+        books = [Book(**data) for data in datas]
+        return "\n".join(str(book) for book in books)

@@ -28,7 +28,7 @@ class JsonManagementService:
         data = self.open_file()
         data.append(value)
 
-        with open(self.__PATH_FILE, "w") as file_write:
+        with open(self.__PATH_FILE, "w", encoding="utf-8") as file_write:
             json.dump(data, file_write, indent=4)
 
     def remove_value(self, index: int) -> None:

@@ -1,6 +1,6 @@
 from typing import Union
 
-from Controller.JsonManagementService import JsonManagementService
+from controller.JsonManagementService import JsonManagementService
 from models.Book import Book
 
 
@@ -8,9 +8,10 @@ class BookController:
     __json_service = JsonManagementService("books.json")
 
     @staticmethod
-    def add(value: dict[str, Union[str, float]]) -> None:
+    def add(value: Book) -> None:
         """Adiciona um livro ao arquivo JSON."""
-        BookController.__json_service.add_file(value)
+        value_dict: dict[str, Union[str, float]] = value.__dict__
+        BookController.__json_service.add_file(value_dict)
 
     @staticmethod
     def remove(index: int) -> None:

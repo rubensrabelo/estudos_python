@@ -3,13 +3,13 @@ from marshmallow import Schema, fields
 
 class AuthorSchema(Schema):
     id = fields.Int(dump_only=True)
-    name = fields.Str(required=True)
+    full_name = fields.Str(required=True)
     gender = fields.Str(required=True)
     country = fields.Str()
 
 
 class AuthorUpdateSchema(Schema):
-    name = fields.Str(required=True)
+    full_name = fields.Str(required=True)
     gender = fields.Str(required=True)
     country = fields.Str()
 
@@ -34,3 +34,4 @@ class BookUpdateSchema(PlainBookSchema):
     price = fields.Float()
     publishing_company = fields.Str()
     country = fields.Str()
+    author_id = fields.Int()

@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import AuthorModel
@@ -21,7 +21,7 @@ class Author(MethodView):
     def post(self, author_data, author_id):
         author = AuthorModel.query.get(author_id)
         if author:
-            author.name = author_data["name"]
+            author.full_name = author_data["full_name"]
             author.gender = author_data["gender"]
             author.country = author_data["country"]
         else:
@@ -50,6 +50,8 @@ class AuthorList(MethodView):
         try:
             db.session.add(author)
             db.session.commit()
+        except IntegrityError:
+            abort(400, message="A author with that full name already exists.")
         except SQLAlchemyError:
             abort(500, message="An error occurred while inserting the author.")
         return author

@@ -29,4 +29,8 @@ class BookSchema(PlainBookSchema):
 
 
 class BookUpdateSchema(PlainBookSchema):
-    ...
+    title = fields.Str()
+    pages_qtd = fields.Str()
+    price = fields.Float()
+    publishing_company = fields.Str()
+    country = fields.Str()

@@ -9,7 +9,7 @@ from schemas import BookSchema, BookUpdateSchema
 blp = Blueprint("Books", __name__, description="Operations on book")
 
 
-@blp.route("/book/<string:book_id>")
+@blp.route("/books/<string:book_id>")
 class Book(MethodView):
     @blp.response(200, BookSchema)
     def get(self, book_id):
@@ -44,11 +44,11 @@ class Book(MethodView):
 
 @blp.route("/books")
 class BookList(MethodView):
-    @blp.response(200, BookSchema)
+    @blp.response(200, BookSchema(many=True))
     def get(self):
         return BookModel.query.all()
 
-    @blp.response(200, BookSchema)
+    @blp.response(201, BookSchema)
     def post(self, book_data):
         book = BookModel(**book_data)
         try:

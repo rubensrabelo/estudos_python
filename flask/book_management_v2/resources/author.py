@@ -9,7 +9,7 @@ from schemas import AuthorSchema, AuthorUpdateSchema
 blp = Blueprint("Authors", __name__, description="Operations of authors")
 
 
-@blp.route("/author/<string:author_id>")
+@blp.route("/authors/<string:author_id>")
 class Author(MethodView):
     @blp.response(200, AuthorSchema)
     def get(self, author_id):
@@ -18,7 +18,7 @@ class Author(MethodView):
 
     @blp.arguments(AuthorUpdateSchema)
     @blp.response(200, AuthorSchema)
-    def post(self, author_data, author_id):
+    def put(self, author_data, author_id):
         author = AuthorModel.query.get(author_id)
         if author:
             author.full_name = author_data["full_name"]
@@ -39,7 +39,7 @@ class Author(MethodView):
 
 @blp.route("/authors")
 class AuthorList(MethodView):
-    @blp.response(200, AuthorSchema)
+    @blp.response(200, AuthorSchema(many=True))
     def get(self):
         return AuthorModel.query.all()
 

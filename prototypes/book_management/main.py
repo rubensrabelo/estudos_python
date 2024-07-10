@@ -14,46 +14,40 @@ options = {
 
 class App:
 
-    def menu(self):
-        for key, value in options.items():
-            print(f"[{key}] {value}")
+    def menu(self, book_data: Book = None, index: int = None) -> None:
+        while True:
+            for key, value in options.items():
+                print(f"[{key}] {value}")
 
-        option = input("Insert your command: ")
+            option = input("Insert your command: ")
 
-        if option in options:
-            if option == "1":
-                self.__add_book()
-            elif option == "2":
-                self.__update_book()
-            elif option == "3":
-                self.__remove_book()
-            elif option == "4":
-                self.menu()
-            elif option == "5":
-                self.__show_book()
+            if option in options:
+                if option == "1":
+                    self.__add_book(book_data)
+                elif option == "2":
+                    self.__update_book(index, book_data)
+                elif option == "3":
+                    self.__remove_book(index)
+                elif option == "4":
+                    self.__show_book()
+                elif option == "5":
+                    continue
+                else:
+                    print("See you later!")
             else:
-                print("Bye")
-        else:
-            print("not ok")
+                print("Invalid option. Try again.")
 
-    def __add_book(self):
-        title = input("Insert the title: ")
-        pages_qtd = int(input("Insert the pages quantity: "))
-        price = float(input("Insert the price: "))
-        publishing_company = input("Insert the Publishing Company: ")
+    def __add_book(self, book_data: Book) -> None:
+        bc.add(book_data)
 
-        book = Book(title, pages_qtd, price, publishing_company)
-        book.add_author(input("Insert the author: "))
-        bc.add(book)
+    def __update_book(self, index: int, data_book: Book) -> None:
+        bc.update(index, data_book)
 
-    def __update_book(self):
-        ...
+    def __remove_book(self, index: int) -> None:
+        bc.remove(index)
 
-    def __remove_book(self):
-        ...
-
-    def __show_book(self):
-        ...
+    def __show_book(self) -> str:
+        return bc.show()
 
 
 if __name__ == "__main__":

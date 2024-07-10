@@ -9,7 +9,7 @@ from schemas import AuthorSchema, AuthorUpdateSchema
 blp = Blueprint("Authors", __name__, description="Operations of authors")
 
 
-@blp.route("author/<string:author_id>")
+@blp.route("/author/<string:author_id>")
 class Author(MethodView):
     @blp.response(200, AuthorSchema)
     def get(self, author_id):

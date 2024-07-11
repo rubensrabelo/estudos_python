@@ -18,7 +18,7 @@ class Book(MethodView):
 
     @blp.arguments(BookUpdateSchema)
     @blp.response(200, BookSchema)
-    def post(self, book_data, book_id):
+    def put(self, book_data, book_id):
         book = BookModel.query.get(book_id)
 
         if book:
@@ -48,11 +48,13 @@ class BookList(MethodView):
     def get(self):
         return BookModel.query.all()
 
+    @blp.arguments(BookSchema)
     @blp.response(201, BookSchema)
     def post(self, book_data):
         book = BookModel(**book_data)
         try:
             db.session.add(book)
+            db.session.commit()
         except IntegrityError:
             abort(400, message="A book with that name already exists.")
         except SQLAlchemyError:

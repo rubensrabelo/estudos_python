@@ -17,7 +17,7 @@ class AuthorUpdateSchema(Schema):
 class PlainBookSchema(Schema):
     id = fields.Int(dump_only=True)
     title = fields.Str(required=True)
-    pages_qtd = fields.Str(required=True)
+    pages_qtd = fields.Int(required=True)
     price = fields.Float(required=True)
     publishing_company = fields.Str()
     country = fields.Str()
@@ -28,9 +28,9 @@ class BookSchema(PlainBookSchema):
     author = fields.List(fields.Nested(AuthorSchema()), dump_only=True)
 
 
-class BookUpdateSchema(PlainBookSchema):
+class BookUpdateSchema(Schema):
     title = fields.Str()
-    pages_qtd = fields.Str()
+    pages_qtd = fields.Int()
     price = fields.Float()
     publishing_company = fields.Str()
     country = fields.Str()

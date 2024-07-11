@@ -36,11 +36,11 @@ class JsonManagementService:
         data = self.open_file()
 
         if not data:
-            raise ValueError("Não há dados para remover.")
+            raise ValueError("There is no data to remove.")
 
         try:
             del data[index]
         except IndexError:
-            raise IndexError("Índice fora dos limites.")
+            raise IndexError("Index out of bounds.")
 
         self.add_file(data)

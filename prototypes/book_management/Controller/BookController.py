@@ -30,7 +30,7 @@ class BookController:
             data[index]["publishing_company"] = data_book.publishing_company
             data[index]["authors"] = list(data_book.authors)
         except IndexError:
-            raise IndexError("Índice fora dos limites.")
+            raise IndexError("Index out of bounds.")
 
         BookController.__json_service.add_file(data)
 

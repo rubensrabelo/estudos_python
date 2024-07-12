@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Book</title>
+</head>
+<body>
+    <a href="/">home</a>
+    <div class="content-form-create-book">
+        <h2>Register your book</h2>
+
+        <form action="/book" method="post">
+            <label for="name">Title:</label>
+            <input type="text" name="name" class="name">
+            
+            <label for="pages_quantity">Pages Quantity:</label>
+            <input type="number" name="pages_quantity" class="pages_quantity">
+            <label for="author">Author:</label>
+            <input type="text" name="author" class="author">
+            <label for="publishing_company">Publishing Company:</label>
+            <input type="text" name="publishing_company" class="publishing_companyme">
+
+            <input type="submit" value="Send">
+        </form>
+    </div>
+</body>
+</html>

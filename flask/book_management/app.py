@@ -6,6 +6,8 @@ import models
 
 from db import db
 from resources.book import blp as BookBlueprint
+from routes.main import main as mainBlueprint
+
 
 def create_app(db_url=None):
     app = Flask(__name__)
@@ -27,5 +29,6 @@ def create_app(db_url=None):
     api = Api(app)
 
     api.register_blueprint(BookBlueprint)
+    app.register_blueprint(mainBlueprint)
 
     return app

@@ -28,7 +28,7 @@ class App:
             elif option == "3":
                 self.__remove_book(index)
             elif option == "4":
-                self.__show_book()
+                print(self.__show_book())
             elif option == "5":
                 self.menu()
             else:
@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     app = App()
 
-    # # abrir o arquivo CSV
+    # abrir o arquivo CSV
     # with open("inputs_livros.csv", "r") as file:
     #     lines = csv.reader(file)
     #     for i, line in enumerate(lines):
@@ -68,3 +68,6 @@ if __name__ == "__main__":
     # Atualizar o dado
     # apagar o dado
     # mostrar todos os dados
+
+    # Está incluindo mais arquivo após apagar
+    app.menu(option="3", index=4)

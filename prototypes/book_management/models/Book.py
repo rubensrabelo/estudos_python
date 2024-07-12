@@ -3,7 +3,7 @@ class Book:
 
     __id_counter: int = 0  # Variável de classe privada para rastrear IDs únicos
 
-    def __init__(self, name: str, pages_quantity: int, price: float, publishing_company: str) -> None:
+    def __init__(self, name: str, pages_quantity: int, price: float, publishing_company: str, authors: list[str] = None) -> None:
         """
         Inicializa uma instância de Book.
 
@@ -17,7 +17,10 @@ class Book:
         self.pages_quantity: int = pages_quantity
         self.price: float = price
         self.publishing_company: str = publishing_company
-        self.authors: list[str] = []
+        if not authors:
+            self.authors: list[str] = []
+        else:
+            self.authors: list[str] = authors
         self.id = self.__increment_id()
 
     def __increment_id(self) -> int:

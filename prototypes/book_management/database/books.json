@@ -50,53 +50,145 @@
         "id": 5
     },
     {
-        "name": "O Apanhador no Campo de Centeio",
-        "pages_quantity": 280,
-        "price": 26.99,
-        "publishing_company": "Holden House",
+        "name": "Alice no Pais das Maravilhas",
+        "pages_quantity": 200,
+        "price": 29.99,
+        "publishing_company": "Wonderland Publishing",
         "authors": [
-            "J.D. Salinger"
+            "Lewis Carroll"
         ],
-        "id": 6
+        "id": 1
     },
     {
-        "name": "Crime e Castigo",
-        "pages_quantity": 450,
-        "price": 34.99,
-        "publishing_company": "St. Petersburg Press",
+        "name": "Dom Quixote",
+        "pages_quantity": 400,
+        "price": 39.99,
+        "publishing_company": "Mancha Press",
         "authors": [
-            "Fyodor Dostoevsky"
+            "Miguel de Cervantes"
         ],
-        "id": 7
+        "id": 2
     },
     {
-        "name": "O Senhor dos Aneis",
-        "pages_quantity": 800,
-        "price": 49.99,
-        "publishing_company": "Middle-earth Publishers",
+        "name": "O Grande Gatsby",
+        "pages_quantity": 250,
+        "price": 24.99,
+        "publishing_company": "Jazz Age Books",
         "authors": [
-            "J.R.R. Tolkien"
+            "F. Scott Fitzgerald"
         ],
-        "id": 8
+        "id": 3
     },
     {
-        "name": "O Pequeno Principe",
-        "pages_quantity": 150,
-        "price": 19.99,
-        "publishing_company": "Planet B-612",
+        "name": "1984",
+        "pages_quantity": 320,
+        "price": 27.99,
+        "publishing_company": "Dystopian Publishing",
         "authors": [
-            "Antoine de Saint-Exupery"
+            "George Orwell"
         ],
-        "id": 9
+        "id": 4
     },
     {
-        "name": "Ulisses",
-        "pages_quantity": 600,
-        "price": 44.99,
-        "publishing_company": "Dublin Press",
+        "name": "Orgulho e Preconceito",
+        "pages_quantity": 300,
+        "price": 22.99,
+        "publishing_company": "Regency Classics",
         "authors": [
-            "James Joyce"
+            "Jane Austen"
         ],
-        "id": 10
-    }
+        "id": 5
+    },
+    [
+        {
+            "name": "Alice no Pais das Maravilhas",
+            "pages_quantity": 200,
+            "price": 29.99,
+            "publishing_company": "Wonderland Publishing",
+            "authors": [
+                "Lewis Carroll"
+            ],
+            "id": 1
+        },
+        {
+            "name": "Dom Quixote",
+            "pages_quantity": 400,
+            "price": 39.99,
+            "publishing_company": "Mancha Press",
+            "authors": [
+                "Miguel de Cervantes"
+            ],
+            "id": 2
+        },
+        {
+            "name": "O Grande Gatsby",
+            "pages_quantity": 250,
+            "price": 24.99,
+            "publishing_company": "Jazz Age Books",
+            "authors": [
+                "F. Scott Fitzgerald"
+            ],
+            "id": 3
+        },
+        {
+            "name": "1984",
+            "pages_quantity": 320,
+            "price": 27.99,
+            "publishing_company": "Dystopian Publishing",
+            "authors": [
+                "George Orwell"
+            ],
+            "id": 4
+        },
+        {
+            "name": "Alice no Pais das Maravilhas",
+            "pages_quantity": 200,
+            "price": 29.99,
+            "publishing_company": "Wonderland Publishing",
+            "authors": [
+                "Lewis Carroll"
+            ],
+            "id": 1
+        },
+        {
+            "name": "Dom Quixote",
+            "pages_quantity": 400,
+            "price": 39.99,
+            "publishing_company": "Mancha Press",
+            "authors": [
+                "Miguel de Cervantes"
+            ],
+            "id": 2
+        },
+        {
+            "name": "O Grande Gatsby",
+            "pages_quantity": 250,
+            "price": 24.99,
+            "publishing_company": "Jazz Age Books",
+            "authors": [
+                "F. Scott Fitzgerald"
+            ],
+            "id": 3
+        },
+        {
+            "name": "1984",
+            "pages_quantity": 320,
+            "price": 27.99,
+            "publishing_company": "Dystopian Publishing",
+            "authors": [
+                "George Orwell"
+            ],
+            "id": 4
+        },
+        {
+            "name": "Orgulho e Preconceito",
+            "pages_quantity": 300,
+            "price": 22.99,
+            "publishing_company": "Regency Classics",
+            "authors": [
+                "Jane Austen"
+            ],
+            "id": 5
+        }
+    ]
 ]

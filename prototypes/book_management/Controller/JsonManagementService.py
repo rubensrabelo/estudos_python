@@ -31,9 +31,14 @@ class JsonManagementService:
         with open(self.__PATH_FILE, "w", encoding="utf-8") as file_write:
             json.dump(data, file_write, indent=4)
 
+    # def __remove_all(self):
+    #     with open(self.__PATH_FILE, "w") as arquivo:
+    #         arquivo.write('{}')
+
     def remove_value(self, index: int) -> None:
         """Remove um valor do arquivo JSON baseado no índice."""
         data = self.open_file()
+        # self.__remove_all()
 
         if not data:
             raise ValueError("There is no data to remove.")

@@ -38,5 +38,8 @@ class BookController:
     def show() -> str:
         """Retorna uma representação em string de todos os livros."""
         datas = BookController.__json_service.open_file()
-        books = [Book(**data) for data in datas]
+        books = [
+            Book(data["name"], data["pages_quantity"], data["price"], data["publishing_company"], data["authors"])
+            for data in datas
+            ]
         return "\n".join(str(book) for book in books)

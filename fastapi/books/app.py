@@ -22,3 +22,34 @@ async def read_book(book_title: str):
     for book in BOOKS:
         if book.get("title").casefold() == book_title.casefold():
             return book
+
+
+@app.get("/books/")
+async def read_category_by_query(category: str):
+    book_to_return = []
+    for book in BOOKS:
+        if category.casefold() == book.get("category").casefold():
+            book_to_return.append(book)
+    return book_to_return
+
+
+@app.get("/books/byauthor/")
+async def read_book_by_author_path(author: str):
+    book_to_return = []
+    for book in BOOKS:
+        if author.casefold() == book.get("author").casefold():
+            book_to_return.append(book)
+    return book_to_return
+
+
+@app.get("/books/{book_author}/")
+async def read_author_category_by_query(book_author: str, category: str):
+    book_to_return = []
+    for book in BOOKS:
+        if (
+            book_author.casefold() == book.get("author").casefold()
+            and
+            category.casefold() == book.get("category").casefold()
+        ):
+            book_to_return.append(book)
+    return book_to_return

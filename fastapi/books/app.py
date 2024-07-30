@@ -53,3 +53,26 @@ async def read_author_category_by_query(book_author: str, category: str):
         ):
             book_to_return.append(book)
     return book_to_return
+
+
+@app.post("/books/create_book")
+async def create_book(new_book=Body()):
+    BOOKS.append(new_book)
+
+
+@app.put("/books/update_book")
+async def update_book(update_book=Body()):
+    for i in range(len(BOOKS)):
+        if update_book.get("title").casefold() == BOOKS[i].get("title").casefold():
+            BOOKS[i] = update_book
+            print(2)
+
+
+@app.delete("/books/delete_book/{book_title}")
+async def delete_book(book_title: str):
+    for i in range(len(BOOKS)):
+        if (
+            book_title.casefold() == BOOKS[i].get("title").casefold()
+        ):
+            BOOKS.pop(i)
+            break

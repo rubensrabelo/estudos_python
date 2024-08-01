@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from db import db
 
 
-class Task(db.Model):
+class TaskModel(db.Model):
     __tablename__ = "tb_task"
 
     id = db.Column(db.Integer, primary_key=True)

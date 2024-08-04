@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import TaskModel
@@ -32,8 +32,10 @@ class Task(MethodView):
             task.name = task_data["name"]
             task.status = task_data["status"]
         else:
-            db.session.add(task)
-            db.session.commit()
+            task = TaskModel(id=task_id, **task_data)
+
+        db.session.add(task)
+        db.session.commit()
 
         return task
 
@@ -52,7 +54,14 @@ class TaskList(MethodView):
         try:
             db.session.add(task)
             db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            abort(
+                400,
+                message="A task with that name already exists."
+            )
         except SQLAlchemyError:
+            db.session.rollback()
             abort(500, message="An error ocurred while inserting the task.")
 
         return task

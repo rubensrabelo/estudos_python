@@ -26,6 +26,6 @@ def app(db_url=None):
     migrate = Migrate(app, db)
     api = Api(app)
 
-    api.resgister(TaskBlueprint)
+    api.register_blueprint(TaskBlueprint)
 
     return app

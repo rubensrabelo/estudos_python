@@ -8,7 +8,7 @@ from db import db
 from resources.task import blp as TaskBlueprint
 
 
-def app(db_url=None):
+def create_app(db_url=None):
     app = Flask(__name__)
     app.config["API_TITLE"] = "Stores REST API"
     app.config["API_VERSION"] = "v1"

@@ -6,6 +6,7 @@ import models
 
 from db import db
 from resources.task import blp as TaskBlueprint
+from views.main import main as MainBlueprint
 
 
 def create_app(db_url=None):
@@ -27,5 +28,6 @@ def create_app(db_url=None):
     api = Api(app)
 
     api.register_blueprint(TaskBlueprint)
+    app.register_blueprint(MainBlueprint)
 
     return app

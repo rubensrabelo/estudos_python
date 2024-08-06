@@ -7,6 +7,7 @@ import models
 from db import db
 from resources.task import blp as TaskBlueprint
 from views.main import main as MainBlueprint
+from views.tasks.task import taskRoute as TaskRouteBlueprint
 
 
 def create_app(db_url=None):
@@ -27,7 +28,8 @@ def create_app(db_url=None):
     migrate = Migrate(app, db)
     api = Api(app)
 
-    api.register_blueprint(TaskBlueprint)
+    api.register_blueprint(TaskBlueprint, url_prefix="/api")
     app.register_blueprint(MainBlueprint)
+    app.register_blueprint(TaskRouteBlueprint)
 
     return app

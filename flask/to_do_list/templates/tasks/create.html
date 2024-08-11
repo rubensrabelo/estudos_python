@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+</head>
+<body>
+    <section class="container">
+        <section class="container-main">
+            <section class="container-main-form">
+                <form action="" method="POST" class="form">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" class="input-name">
+                    <input type="submit" value="Send" class="input-btn">
+                </form>
+
+                <section class="container-main-tasks">
+                    <h2>All Your Tasks:</h2>
+                        
+                    {% for task in tasks%}
+                        <h2>{{task.name}}</h2>
+                        <ul>
+                            {% if task.status == 1  %}
+                            <li>Status: Realizado</li>
+                            {% else %}
+                            <wli>Status: Não Realizado</li>
+                            {% endif %}
+                        </ul>
+                    {% endfor %}
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+</html>

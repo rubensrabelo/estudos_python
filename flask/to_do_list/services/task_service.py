@@ -12,3 +12,14 @@ class TaskService:
         else:
             tasks = []
         return tasks
+
+    @staticmethod
+    def create_task(task_data):
+        service = TaskList()
+        status_code, response = service.post(task_data)
+
+        if status_code == 201:
+            tasks = response.json
+        else:
+            tasks = []
+        return tasks

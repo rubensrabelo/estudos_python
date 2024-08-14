@@ -14,7 +14,7 @@ class PostModel(db.Model):
         default=lambda: datetime.now(tz=timezone.utc)
         )
     update_at = db.Column(
-        db.Datetime, nullable=False,
+        db.DateTime, nullable=False,
         default=lambda: datetime.now(tz=timezone.utc),
         onupdate=lambda: datetime.now(tz=timezone.utc)
     )

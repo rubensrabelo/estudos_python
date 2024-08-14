@@ -30,8 +30,8 @@ class Post(MethodView):
         post = PostModel.query.get(post_id)
 
         if post:
-            post.title = post["title"]
-            post.comment = post["comment"]
+            post.title = post_data["title"]
+            post.comment = post_data["comment"]
         else:
             post = PostModel(**post, id=post_id)
 

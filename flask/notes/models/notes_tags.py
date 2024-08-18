@@ -1,7 +1,7 @@
 from db import db
 
 
-class NotesTags(db.Model):
+class NotesTagsModel(db.Model):
     __tablename__ = "tb_notes_tags"
 
     id = db.Column(db.Integer, primary_key=True)

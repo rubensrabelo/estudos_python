@@ -23,7 +23,7 @@ class TagUpdateSchema(Schema):
     name = fields.Str(required=True)
 
 
-class NotesSchema(PlainNoteSchema):
+class NoteSchema(PlainNoteSchema):
     tags = fields.List(fields.Nested(PlainTagSchema()), dump_only=True)
 
 

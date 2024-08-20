@@ -1,0 +1,5 @@
+Flask-Smorest
+Flask-SQLAlchemy
+Flask-Migrate
+marshmallow
+python-dotenv

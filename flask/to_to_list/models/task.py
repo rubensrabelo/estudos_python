@@ -1,18 +1,18 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 from db import db
 
 
 class TaskModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.Integer, nullable=False)
-    create_at = db.Column(
+    name = db.Column(db.String, nullable=False)
+    status = db.Column(db.Boolean, nullable=False, default=False)
+    created_at = db.Column(
         db.DateTime, nullable=False,
-        default=lambda: datetime.now(tz=timezone.utc)
+        default=datetime.now
     )
-    update_at = db.Column(
+    updated_at = db.Column(
         db.DateTime, nullable=False,
-        default=lambda: datetime.now(tz=timezone.utc),
-        onupdate=lambda: datetime.now(tz=timezone.utc)
+        default=datetime.now,
+        onupdate=datetime.now
     )

@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from flask_sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError
 
 from db import db
 from models import TaskModel
@@ -27,7 +27,7 @@ class Task(MethodView):
 
     @blp.arguments(TaskUpdateSchema)
     @blp.response(200, TaskSchema)
-    def post(self, task_data, task_id):
+    def put(self, task_data, task_id):
         task = TaskModel.query.get(task_id)
 
         if task:

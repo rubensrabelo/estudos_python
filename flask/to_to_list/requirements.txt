@@ -3,7 +3,5 @@ Flask-SQLAlchemy
 Flask-Migrate
 marshmallow
 python-dotenv
-flask_mysqldb
-Python-dotenv
-mysql-connector-python
 mysqlclient
+pymysql

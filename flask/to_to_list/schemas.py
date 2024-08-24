@@ -10,5 +10,5 @@ class TaskSchema(Schema):
 
 
 class TaskUpdateSchema(Schema):
-    name = fields.Str(required=True)
+    name = fields.Str()
     status = fields.Bool()

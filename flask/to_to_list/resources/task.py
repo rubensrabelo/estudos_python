@@ -9,7 +9,7 @@ from schemas import TaskSchema, TaskUpdateSchema
 blp = Blueprint("Tasks", __name__, description="Operations on tasks")
 
 
-@blp.route("/tasks/<string:task_id>")
+@blp.route("/tasks/<int:task_id>")
 class Task(MethodView):
     @blp.response(200, TaskSchema)
     def get(self, task_id):
@@ -31,8 +31,8 @@ class Task(MethodView):
         task = TaskModel.query.get(task_id)
 
         if task:
-            task.name = task_data["name"]
-            task.status = task_data["status"]
+            task.name = task_data.get("name", task.name)
+            task.status = task_data.get("status", task.status)
         else:
             task = TaskModel(id=task_id, **task_data)
 

@@ -3,5 +3,5 @@ Flask-SQLAlchemy
 Flask-Migrate
 marshmallow
 python-dotenv
-mysqlclient
 pymysql
+Flask-Script

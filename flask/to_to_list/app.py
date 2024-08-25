@@ -1,4 +1,5 @@
 import os
+import pymysql
 from flask import Flask
 from flask_smorest import Api
 from flask_migrate import Migrate
@@ -8,6 +9,8 @@ import models
 
 from db import db
 from resources.task import blp as TaskBlueprint
+
+pymysql.install_as_MySQLdb()
 
 
 def create_app(db_url=None):

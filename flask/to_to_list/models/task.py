@@ -4,6 +4,8 @@ from db import db
 
 
 class TaskModel(db.Model):
+    __tablename__ = "tb_tasks"
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     status = db.Column(db.Boolean, nullable=False, default=False)

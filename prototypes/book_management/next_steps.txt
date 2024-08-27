@@ -1,4 +1,0 @@
-Entrada: Eu vou receber do usuário o Livro -> Nome, Qtd_pag, Valor, Editora, Autor
-
-
-2. Começar o planejamento da construção da main

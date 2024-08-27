@@ -5,3 +5,4 @@ marshmallow
 python-dotenv
 pymysql
 Flask-Script
+pytest

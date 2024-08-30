@@ -41,3 +41,68 @@ def test_task_update(client):
     assert update_task is not None
     assert update_task.name == "Update Task"
     assert update_task.updated_at > task.created_at
+
+
+# 3. Teste de exclusão de tarefa
+def test_task_deletion(client):
+    new_task = TaskModel(name="Task to delete")
+
+    db.session.add(new_task)
+    db.session.commit()
+
+    task = TaskModel.query.filter_by(name="Task to delete").first()
+
+    db.session.delete(task)
+    db.session.commit()
+
+    deleted_task = TaskModel.query.filter_by(name="Task to delete").first()
+
+    assert deleted_task is None
+
+
+# 4. Teste de status da tarefa
+def test_status_update(client):
+    new_task = TaskModel(name="Task with status")
+
+    db.session.add(new_task)
+    db.session.commit()
+
+    task = TaskModel.query.filter_by(name="Task with status").first()
+    task.status = True
+    db.session.commit()
+
+    update_task = TaskModel.query.filter_by(name="Task with status").first()
+
+    assert update_task is not None
+    assert update_task.status is True
+
+
+# 5. Teste de validação de dados
+def test_task_name_required(client):
+    new_task = TaskModel(name=None)
+
+    try:
+        db.session.add(new_task)
+        db.session.commit()
+        assert False, "O commit deveria ter falhado por causa do nome nulo"
+    except Exception as e:
+        db.session.rollback()
+        assert "Integrity" in str(e.__class__.__name__)
+
+
+# 6. Teste de Listagem de Tarefas
+def test_task_list(client):
+    task1 = TaskModel(name="Task 1")
+    task2 = TaskModel(name="Task 2")
+
+    db.session.add(task1)
+    db.session.add(task2)
+    db.session.commit()
+
+    tasks = TaskModel.query.all()
+
+    assert len(tasks) == 5
+
+
+# Testes de Consulta
+# Testes de Limpeza

@@ -102,3 +102,7 @@ def test_task_list(client):
     tasks = TaskModel.query.all()
 
     assert len(tasks) == 5
+
+
+# Testes de Consulta
+# Testes de Limpeza

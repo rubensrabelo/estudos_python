@@ -90,7 +90,21 @@ def test_task_name_required(client):
         assert "Integrity" in str(e.__class__.__name__)
 
 
-# 6. Teste de Listagem de Tarefas
+# 6. Teste de seleção por id
+def test_query_by_id(client):
+    new_task = TaskModel(name="Task by ID")
+
+    db.session.add(new_task)
+    db.session.commit()
+
+    task = db.session.get(TaskModel, new_task.id)
+
+    assert task is not None
+    assert task.id == new_task.id
+    assert task.name == "Task by ID"
+
+
+# 7. Teste de Listagem de Tarefas
 def test_task_list(client):
     task1 = TaskModel(name="Task 1")
     task2 = TaskModel(name="Task 2")
@@ -101,8 +115,28 @@ def test_task_list(client):
 
     tasks = TaskModel.query.all()
 
-    assert len(tasks) == 5
+    assert len(tasks) == 6
 
 
-# Testes de Consulta
-# Testes de Limpeza
+# 8. Testes de erro de transação
+def test_transaction_rollback_on_error(client):
+    try:
+        task1 = TaskModel(name="Task before error")
+
+        db.session.add(task1)
+
+        task2 = TaskModel(name=None)
+
+        db.session.add(task2)
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+
+    task = TaskModel.query.filter_by(name="Task Before Error").first()
+
+    assert task is None
+
+
+# 9. Teste de limpeza
+def test_cleanup_after_deletion(client):
+    ...

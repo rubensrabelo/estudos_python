@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import pytest
 
 from models.task import TaskModel
 from db import db
@@ -80,15 +81,14 @@ def test_status_update(client):
 
 # 5. Teste de validação de dados
 def test_task_name_required(client):
-    new_task = TaskModel(name=None)
-
-    try:
+    with pytest.raises(Exception) as e:
+        new_task = TaskModel(name=None)
         db.session.add(new_task)
         db.session.commit()
-        assert False, "O commit deveria ter falhado por causa do nome nulo"
-    except Exception as e:
-        db.session.rollback()
-        assert "Integrity" in str(e.__class__.__name__)
+
+    db.session.rollback()
+
+    assert "IntegrityError" in str(e.type.__name__)
 
 
 # 6. Teste de seleção por id

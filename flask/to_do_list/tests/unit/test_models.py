@@ -116,7 +116,7 @@ def test_task_list(client):
 
     tasks = TaskModel.query.all()
 
-    assert len(tasks) == 6
+    assert len(tasks) == 2
 
 
 # 8. Testes de erro de transação

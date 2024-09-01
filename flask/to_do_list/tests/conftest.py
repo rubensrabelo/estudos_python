@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from app import create_app
 from db import db
 import pytest
-
+from models.task import TaskModel
 
 @pytest.fixture(scope="module")
 def app():
@@ -25,3 +25,9 @@ def client(app):
 @pytest.fixture(scope="module")
 def runner(app):
     return app.test_cli_runner()
+
+
+@pytest.fixture(autouse=True)
+def clean_db():
+    db.session.query(TaskModel).delete()
+    db.session.commit()

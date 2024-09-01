@@ -14,6 +14,7 @@ def test_task_model(client):
     task = TaskModel.query.filter_by(name="Test Task").first()
 
     assert task is not None
+    assert task.id == 1
     assert task.name == "Test Task"
     assert task.status is False
 
@@ -135,8 +136,3 @@ def test_transaction_rollback_on_error(client):
     task = TaskModel.query.filter_by(name="Task Before Error").first()
 
     assert task is None
-
-
-# 9. Teste de limpeza
-def test_cleanup_after_deletion(client):
-    ...

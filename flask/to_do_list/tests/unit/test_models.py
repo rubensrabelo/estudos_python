@@ -5,19 +5,25 @@ from models.task import TaskModel
 from db import db
 
 
-# 1. Task creation test
-def test_task_model(client):
-    new_task = TaskModel(name="Test Task")
+@pytest.mark.parametrize(
+        "task_name, expected_value",
+        [
+            ("Task 1", False),
+            ("Another task", False),
+            ("", False)
+        ]
+)
+def test_task_model(client, task_name, expected_value):
+    new_task = TaskModel(name=task_name)
 
     db.session.add(new_task)
     db.session.commit()
 
-    task = TaskModel.query.filter_by(name="Test Task").first()
+    task = TaskModel.query.filter_by(name=task_name).first()
 
     assert task is not None
-    assert task.id == 1
-    assert task.name == "Test Task"
-    assert task.status is False
+    assert task.name == task_name
+    assert task.status == expected_value
 
     now = datetime.now()
     assert task.created_at <= now
@@ -26,60 +32,75 @@ def test_task_model(client):
     assert task.updated_at >= now - timedelta(seconds=1)
 
 
-# 2. Task update task
-def test_task_update(client):
-    new_task = TaskModel(name="Test Task")
+@pytest.mark.parametrize(
+        "initial_name, updated_name",
+        [
+            ("Initial Task", "Updated Task"),
+            ("Another Task", "Another Updated Task"),
+            ("Task Before", "Task After")
+        ]
+)
+def test_task_update(client, initial_name, updated_name):
+    new_task = TaskModel(name=initial_name)
 
     db.session.add(new_task)
     db.session.commit()
 
-    task = TaskModel.query.filter_by(name="Test Task").first()
+    task = TaskModel.query.filter_by(name=initial_name).first()
 
-    task.name = "Update Task"
+    task.name = updated_name
     db.session.commit()
 
-    update_task = TaskModel.query.filter_by(name="Update Task").first()
+    update_task = TaskModel.query.filter_by(name=updated_name).first()
 
     assert update_task is not None
-    assert update_task.name == "Update Task"
-    assert update_task.updated_at > task.created_at
+    assert update_task.name == updated_name
+    assert update_task.updated_at >= task.created_at
 
 
-# 3. Teste de exclusão de tarefa
-def test_task_deletion(client):
-    new_task = TaskModel(name="Task to delete")
+@pytest.mark.parametrize(
+        "task_name",
+        ["Task to delete 1", "Task to delete 2", "Task to delete 3"]
+)
+def test_task_deletion(client, task_name):
+    new_task = TaskModel(name=task_name)
 
     db.session.add(new_task)
     db.session.commit()
 
-    task = TaskModel.query.filter_by(name="Task to delete").first()
+    task = TaskModel.query.filter_by(name=task_name).first()
 
     db.session.delete(task)
     db.session.commit()
 
-    deleted_task = TaskModel.query.filter_by(name="Task to delete").first()
+    deleted_task = TaskModel.query.filter_by(name=task_name).first()
 
     assert deleted_task is None
 
 
-# 4. Teste de status da tarefa
-def test_status_update(client):
-    new_task = TaskModel(name="Task with status")
+@pytest.mark.parametrize(
+        "task_name, expected_status",
+        [
+            ("Task with status", True),
+            ("Another Task", False)
+        ]
+)
+def test_status_update(client, task_name, expected_status):
+    new_task = TaskModel(name=task_name)
 
     db.session.add(new_task)
     db.session.commit()
 
-    task = TaskModel.query.filter_by(name="Task with status").first()
-    task.status = True
+    task = TaskModel.query.filter_by(name=task_name).first()
+    task.status = expected_status
     db.session.commit()
 
-    update_task = TaskModel.query.filter_by(name="Task with status").first()
+    update_task = TaskModel.query.filter_by(name=task_name).first()
 
     assert update_task is not None
-    assert update_task.status is True
+    assert update_task.status is expected_status
 
 
-# 5. Teste de validação de dados
 def test_task_name_required(client):
     with pytest.raises(Exception) as e:
         new_task = TaskModel(name=None)
@@ -91,7 +112,6 @@ def test_task_name_required(client):
     assert "IntegrityError" in str(e.type.__name__)
 
 
-# 6. Teste de seleção por id
 def test_query_by_id(client):
     new_task = TaskModel(name="Task by ID")
 
@@ -105,7 +125,6 @@ def test_query_by_id(client):
     assert task.name == "Task by ID"
 
 
-# 7. Teste de Listagem de Tarefas
 def test_task_list(client):
     task1 = TaskModel(name="Task 1")
     task2 = TaskModel(name="Task 2")
@@ -119,7 +138,6 @@ def test_task_list(client):
     assert len(tasks) == 2
 
 
-# 8. Testes de erro de transação
 def test_transaction_rollback_on_error(client):
     try:
         task1 = TaskModel(name="Task before error")

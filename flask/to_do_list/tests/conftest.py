@@ -8,6 +8,7 @@ from app import create_app
 from db import db
 from models.task import TaskModel
 
+
 @pytest.fixture(scope="module")
 def app():
     app = create_app("testing")

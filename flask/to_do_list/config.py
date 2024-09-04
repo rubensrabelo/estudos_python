@@ -3,7 +3,7 @@ import os
 
 class Config:
     API_TITLE = "To Do List REST API"
-    API_VERSION = "v2"
+    API_VERSION = "v2.1"
     OPENAPI_VERSION = "3.0.3"
     OPENAPI_URL_PREFIX = "/"
     OPENAPI_SWAGGER_UI_PATH = "/swagger-ui"
@@ -23,3 +23,8 @@ class Config:
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+
+
+class IntegrationTestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = Config.get_db_url()

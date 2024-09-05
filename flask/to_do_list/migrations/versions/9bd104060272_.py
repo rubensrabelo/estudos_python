@@ -1,8 +1,8 @@
-"""Add TaskModel with columns and constraints
+"""empty message
 
-Revision ID: 3d891609f4d3
+Revision ID: 9bd104060272
 Revises: 
-Create Date: 2024-08-25 09:29:42.261404
+Create Date: 2024-09-05 13:35:57.098893
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3d891609f4d3'
+revision = '9bd104060272'
 down_revision = None
 branch_labels = None
 depends_on = None
